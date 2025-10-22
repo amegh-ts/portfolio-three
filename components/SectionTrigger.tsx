@@ -19,12 +19,10 @@ export const SectionTrigger = ({
 
   useFrame(() => {
     if (!ref.current) return;
-
     const triggerPos = new THREE.Vector3(...position);
     const dist = triggerPos.distanceTo(carPos);
-    if (dist < 3) {
-      setActiveSection(label);
-    }
+    if (dist < 3) setActiveSection(label);
+    else if (setActiveSection) setActiveSection(null);
   });
 
   return (
