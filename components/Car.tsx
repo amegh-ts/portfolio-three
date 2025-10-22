@@ -1,10 +1,10 @@
 "use client";
 
-import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { useKeyboardControls } from "@/store/controls";
 import { useCarStore } from "@/store/car";
+import { useKeyboardControls } from "@/store/controls";
 
 export const Car = () => {
   const ref = useRef<THREE.Mesh>(null!);
@@ -12,7 +12,6 @@ export const Car = () => {
   const { setMesh, setPosition } = useCarStore();
   const velocityRef = useRef(0);
 
-  // Set the mesh once
   useFrame(() => {
     if (!ref.current) return;
     setMesh(ref.current);
@@ -34,10 +33,11 @@ export const Car = () => {
     const dir = new THREE.Vector3(0, 0, -1).applyQuaternion(
       ref.current.quaternion
     );
-    ref.current.position.addScaledVector(dir, vel * 0.1); // delta scaled manually
+    ref.current.position.addScaledVector(dir, vel * 0.1);
 
-    // Update store position
+    // Store car position and speed
     setPosition(ref.current.position);
+    ref.current.userData.velocity = vel;
   });
 
   return (

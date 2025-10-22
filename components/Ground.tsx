@@ -2,14 +2,11 @@
 "use client";
 
 import { useLoader } from "@react-three/fiber";
-import { TextureLoader, RepeatWrapping } from "three";
+import { RepeatWrapping, TextureLoader } from "three";
 
 export const Ground = () => {
-  // ✅ make sure you actually have /public/textures/ground.jpg
   const texture = useLoader(TextureLoader, "/textures/ground.jpg");
-
-  texture.wrapS = RepeatWrapping;
-  texture.wrapT = RepeatWrapping;
+  texture.wrapS = texture.wrapT = RepeatWrapping;
   texture.repeat.set(20, 20);
 
   return (
